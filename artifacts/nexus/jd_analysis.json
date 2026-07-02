@@ -1,0 +1,37 @@
+{
+  "role": "Senior AI Engineer \u2014 Founding Team @ Redrob AI",
+  "yoe_range": [
+    5,
+    9
+  ],
+  "preferred_locations": [
+    "pune",
+    "noida",
+    "delhi",
+    "ncr",
+    "mumbai",
+    "bangalore",
+    "hyderabad"
+  ],
+  "company_type": "product_startup",
+  "skill_cluster_emphasis": {
+    "vector_retrieval": 0.28,
+    "llm_rag": 0.24,
+    "ml_training": 0.2,
+    "ml_production": 0.18,
+    "python_data": 0.1
+  },
+  "hard_disqualifiers": [
+    "consulting_only_career",
+    "cv_speech_robotics_specialist",
+    "management_track_no_code",
+    "pure_research_no_prod"
+  ],
+  "strong_signals": [
+    "shipped_ranking_search_to_prod",
+    "vector_db_in_prod",
+    "founding_team_startup",
+    "active_github",
+    "product_company_ml"
+  ]
+}

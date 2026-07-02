@@ -1,0 +1,20 @@
+# NEXUS Ranker — Python dependencies (CPU-only, no GPU required)
+
+# Core ML
+scikit-learn>=1.3.0
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Semantic embeddings (primary semantic scorer — falls back to TF-IDF if unavailable)
+sentence-transformers>=2.2.2
+
+# Data
+pandas>=2.0.0
+tqdm>=4.65.0
+
+# UI (sandbox)
+streamlit>=1.28.0
+plotly>=5.15.0
+
+# Vector search (optional, for production scale)
+# faiss-cpu>=1.7.4
