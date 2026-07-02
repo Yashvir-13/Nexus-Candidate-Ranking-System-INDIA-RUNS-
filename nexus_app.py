@@ -289,16 +289,18 @@ def parse_uploaded_candidates(uploaded_file) -> list[dict]:
     uploading a genuinely different file correctly invalidates this cache.
     """
     name = uploaded_file.name.lower()
-    content = uploaded_file.getvalue()
+    
+    # IMPORTANT: DO NOT use uploaded_file.getvalue() or .read() all at once.
+    # A 500MB JSONL file will cause an Out-Of-Memory (OOM) crash if decoded fully in memory.
+    # Stream the file directly.
 
     if name.endswith(".json"):
-        data = json.loads(content)
+        data = json.load(uploaded_file)
         return data if isinstance(data, list) else [data]
 
     if name.endswith(".gz"):
-        import io
         rows = []
-        with gzip.open(io.BytesIO(content), "rt") as f:
+        with gzip.open(uploaded_file, "rt", encoding="utf-8") as f:
             for line in f:
                 line = line.strip()
                 if line:
@@ -306,8 +308,11 @@ def parse_uploaded_candidates(uploaded_file) -> list[dict]:
         return rows
 
     # .jsonl or unrecognized extension -- assume line-delimited JSON
+    import io
     rows = []
-    for line in content.decode("utf-8").splitlines():
+    # Wrap the uploaded file stream into a text wrapper for line-by-line decoding
+    text_stream = io.TextIOWrapper(uploaded_file, encoding="utf-8")
+    for line in text_stream:
         line = line.strip()
         if line:
             rows.append(json.loads(line))
