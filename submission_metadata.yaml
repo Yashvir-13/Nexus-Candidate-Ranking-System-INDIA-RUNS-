@@ -1,19 +1,31 @@
 # Redrob Hackathon — Submission Metadata
 
-team_name: "your-team-name-here"
+team_name: "Helium"
 
 primary_contact:
-  name: "Your Name"
-  email: "your@email.com"
-  phone: "+91-XXXXXXXXXX"
+  name: "Jatin Sharma"
+  email: "e23cseu0519@bennett.edu.in"
+  phone: "+91-8448802750"
 
 team_members:
-  - name: "Your Name"
-    email: "your@email.com"
-    role: "Solo"
+  - name: "Jatin Sharma"
+    email: "e23cseu0519@bennett.edu.in"
+    role: "Member"
+  - name: "Yashvir Singh"
+    email: "E23CSEU0293@bennett.edu.in"
+    role: "Member"
+  
+  - name: "Chirag Sethi"
+    email: "chiragsethi1441@gmail.com"
+    role: "Member" 
 
-github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"
-sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+  - name: "Varun Singh"
+    email: "varunsingh3125@gmail.com"
+    role: "Member"
+    phone: "+91 8287437826"
+
+github_repo: "https://github.com/Yashvir-13/Nexus-Candidate-Ranking-System-INDIA-RUNS-"
+sandbox_link: "https://nexus-app-helium.streamlit.app/"
 reproduce_command: "python nexus_precompute.py --candidates ./candidates.jsonl && python nexus_ranker.py --candidates ./candidates.jsonl --out ./submission.csv"
 
 compute:
@@ -29,9 +41,12 @@ compute:
 
 ai_tools_used:
   - "Claude"
+  - "AntiGravity (Gemini IDE Assistant)"
 
 ai_usage_summary: |
-  Used Claude for architecture discussion, code review, and scoring logic design.
+  Used Claude initially for architecture discussion, code review, and scoring logic design.
+  Used AntiGravity (Gemini IDE Assistant) for debugging validation errors, configuring
+  Streamlit deployment fixes (OOM streaming buffers), and resolving PyTorch environment issues.
   All candidate data processed locally — no candidate data was sent to any LLM API.
   Ranking is fully deterministic and reproducible from source code.
 
