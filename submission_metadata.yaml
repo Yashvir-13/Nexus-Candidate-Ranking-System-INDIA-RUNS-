@@ -1,0 +1,70 @@
+# Redrob Hackathon — Submission Metadata
+
+team_name: "your-team-name-here"
+
+primary_contact:
+  name: "Your Name"
+  email: "your@email.com"
+  phone: "+91-XXXXXXXXXX"
+
+team_members:
+  - name: "Your Name"
+    email: "your@email.com"
+    role: "Solo"
+
+github_repo: "https://github.com/YOUR_USERNAME/redrob-ranker"
+sandbox_link: "https://huggingface.co/spaces/YOUR_USERNAME/redrob-ranker"
+reproduce_command: "python nexus_precompute.py --candidates ./candidates.jsonl && python nexus_ranker.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "CPU"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Ubuntu 22.04 / macOS 14"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: true
+  pre_computation_time_minutes: 3
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude for architecture discussion, code review, and scoring logic design.
+  All candidate data processed locally — no candidate data was sent to any LLM API.
+  Ranking is fully deterministic and reproducible from source code.
+
+methodology_summary: |
+  NEXUS: five-layer weighted scoring model with a bounded, additive behavioral
+  calibration signal (not a runaway multiplier). Layers: Career Arc (30%,
+  exponential time-decay so recent AI/ML roles at product companies count far
+  more than old ones), Skill Cluster Coverage (25%, five JD-derived clusters
+  with log-scaled depth rather than flat keyword lists), Semantic similarity
+  (25%, TF-IDF cosine on a fixed reference scale so scores are stable across
+  runs rather than dependent on which other candidates are in the batch),
+  Experience (12%, YoE band + applied-ML ratio + education tier), and
+  Location/Logistics (8%, geo fit + notice period + work mode). Word-boundary
+  matching is used throughout to prevent both skill false-positives (e.g.
+  "ai" inside "faiss") and title false-positives (e.g. "legal" inside
+  "paralegal"). Consulting-only candidates, disqualified titles, research-only
+  careers with no production deployment, management-track candidates with no
+  recent code, and job-hopping ("title-chasing") patterns are all gated on
+  both the career-arc and semantic components. The behavioral calibration
+  signal is a weighted average (not a product) of all 23 redrob_signals,
+  mapped to a modest 0.85x-1.20x multiplier -- large enough to break ties
+  in favor of active, responsive, verified candidates, but not large enough
+  to override actual job fit. Anti-pattern detection runs 7 rule-based
+  checks and grades suspicion by the number of DISTINCT anomaly categories
+  triggered (not raw flag count), so one systemic issue with multiple
+  instances doesn't unfairly cap a candidate; 3+ distinct anomaly types
+  caps the score. Final score is clamped to [0, 1]. Runtime: <5s for the
+  50-candidate sample; benchmarked to comfortably fit the 100K/5-minute
+  budget on CPU.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true
